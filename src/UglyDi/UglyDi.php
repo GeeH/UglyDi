@@ -127,11 +127,5 @@ class UglyDi
             return $this->get($userArguments[$argument->getName()]);
         }
     }
-
-//    private function debug($data)
-//    {
-//        echo '<pre>';
-//        var_dump($data);
-//        die('</pre>');
-//    }
+    
 } 
