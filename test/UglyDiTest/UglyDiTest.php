@@ -111,6 +111,32 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf($className, $class);
     }
 
+    public function testDependenciesThatHaveComeFromConfig()
+    {
+        $this->di = new UglyDi('module/UglyDi/test/UglyDiTest/Asset/config.php');
+        $className = Adapter::class;
+        $class = $this->di->get($className);
+        $this->assertInstanceOf($className, $class);
+    }
+
+    public function testDependenciesThatComeFromConfigImplied()
+    {
+        $this->di = new UglyDi('module/UglyDi/test/UglyDiTest/Asset/config.php');
+        $className = TableGateway::class;
+        $arguments = [
+            'table' => 'bender',
+            'adapter' => Adapter::class,
+        ];
+        $class = $this->di->get($className, false, $arguments);
+        $this->assertInstanceOf($className, $class);
+    }
+
+    public function testNoConfigExcepts()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->di = new UglyDi('this/wont/exist.php');
+    }
+
     protected function setUp()
     {
         $this->di = new UglyDi();
