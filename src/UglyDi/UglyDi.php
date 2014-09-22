@@ -31,7 +31,7 @@ class UglyDi
     /**
      * @param null $config
      */
-    public function __construct($config = null)
+    public function __construct($config = null, $useOnlyCached = false)
     {
         if (is_null($config)) {
             return true;
@@ -60,7 +60,7 @@ class UglyDi
             return $this->created[$className];
         }
 
-        if(array_key_exists($className, $this->config)) {
+        if (array_key_exists($className, $this->config)) {
             $userArguments = ArrayUtils::merge($userArguments, $this->config[$className]);
 
         }
