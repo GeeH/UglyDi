@@ -11,6 +11,7 @@ namespace UglyDi;
 use ReflectionClass;
 use ReflectionParameter;
 use UglyDi\Exception\InvalidClassException;
+use Zend\Stdlib\ArrayUtils;
 
 class UglyDi
 {
@@ -22,6 +23,29 @@ class UglyDi
      * @var bool
      */
     protected $reuse = true;
+    /**
+     * @var array
+     */
+    protected $config = [];
+
+    /**
+     * @param null $config
+     */
+    public function __construct($config = null)
+    {
+        if (is_null($config)) {
+            return true;
+        }
+        if (is_array($config)) {
+            $this->config = $config;
+            return true;
+        }
+        if (file_exists($config)) {
+            $this->config = require($config);
+            return true;
+        }
+        throw new \InvalidArgumentException('Config at path `' . $config . '` not found');
+    }
 
     /**
      * @param $className
@@ -34,6 +58,11 @@ class UglyDi
         // if this has been created before, and we should reuse classes, return that class
         if (array_key_exists($className, $this->created) && $this->reuse) {
             return $this->created[$className];
+        }
+
+        if(array_key_exists($className, $this->config)) {
+            $userArguments = ArrayUtils::merge($userArguments, $this->config[$className]);
+
         }
 
         $reflector = $this->getReflector($className);
@@ -109,23 +138,30 @@ class UglyDi
         return $completedArguments;
     }
 
+    /**
+     * @param ReflectionParameter $argument
+     * @param array $userArguments
+     * @return object
+     */
     private function fillArgument(ReflectionParameter $argument, array $userArguments)
     {
 
         if (!$argument->getClass()
-            && array_key_exists($argument->getName(), $userArguments)) {
+            && array_key_exists($argument->getName(), $userArguments)
+        ) {
             return $userArguments[$argument->getName()];
         }
 
         if ($argument->getClass()
             && !array_key_exists($argument->getName(), $userArguments)
-            && !$argument->isOptional()) {
+            && !$argument->isOptional()
+        ) {
             return $this->get($argument->getClass()->getName());
         }
 
-        if(!$argument->isOptional()) {
+        if (!$argument->isOptional()) {
             return $this->get($userArguments[$argument->getName()]);
         }
     }
-    
+
 } 
