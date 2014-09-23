@@ -3,4 +3,4 @@ UglyDi
 
 Ugly Di container
 
-(https://travis-ci.org/GeeH/UglyDi.svg?branch=master)
+![Build Status](https://travis-ci.org/GeeH/UglyDi.svg?branch=master)
