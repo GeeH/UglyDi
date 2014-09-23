@@ -113,7 +113,7 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
 
     public function testDependenciesThatHaveComeFromConfig()
     {
-        $this->di = new UglyDi('module/UglyDi/tests/UglyDiTest/Asset/config.php');
+        $this->di = new UglyDi('tests/UglyDiTest/Asset/config.php');
         $className = Adapter::class;
         $class = $this->di->get($className);
         $this->assertInstanceOf($className, $class);
@@ -121,7 +121,7 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
 
     public function testDependenciesThatComeFromConfigImplied()
     {
-        $this->di = new UglyDi('module/UglyDi/tests/UglyDiTest/Asset/config.php');
+        $this->di = new UglyDi('tests/UglyDiTest/Asset/config.php');
         $className = TableGateway::class;
         $arguments = [
             'table' => 'bender',
