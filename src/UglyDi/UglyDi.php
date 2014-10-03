@@ -28,10 +28,11 @@ class UglyDi
      */
     protected $config = [];
 
+
     /**
      * @param null $config
      */
-    public function __construct($config = null, $useOnlyCached = false)
+    public function __construct($config = null)
     {
         if (is_null($config)) {
             return true;
@@ -49,11 +50,11 @@ class UglyDi
 
     /**
      * @param $className
-     * @param bool $autoFillOptionalDependencies
      * @param array $userArguments
+     * @internal param bool $fillOptional
      * @return object
      */
-    public function get($className, $autoFillOptionalDependencies = false, $userArguments = [])
+    public function get($className, $userArguments = [])
     {
         // if this has been created before, and we should reuse classes, return that class
         if (array_key_exists($className, $this->created) && $this->reuse) {
@@ -72,9 +73,9 @@ class UglyDi
             return $this->createAndStoreNewClass($className, $reflector);
         }
 
-        // if there are no required parameters and we don't need to auto fill the optional dependencies and no user arguments
+        // if there are no required parameters and we don't need to auto fill the optional dependencies
+        // and no user arguments
         if ($reflector->getConstructor()->getNumberOfRequiredParameters() === 0
-            && !$autoFillOptionalDependencies
             && empty($userArguments)
         ) {
             return $this->createAndStoreNewClass($className, $reflector);
@@ -91,7 +92,7 @@ class UglyDi
      * @return ReflectionClass
      * @throws InvalidClassException
      */
-    private function getReflector($className)
+    public function getReflector($className)
     {
         // can we create this class?
         if (!class_exists($className)) {
@@ -131,7 +132,8 @@ class UglyDi
      */
     private function getAndFillArguments(ReflectionClass $reflector, array $userArguments)
     {
-        $classArguments = $reflector->getConstructor()->getParameters();
+        $classArguments     = $reflector->getConstructor()->getParameters();
+        $completedArguments = [];
         foreach ($classArguments as $argument) {
             $completedArguments[] = $this->fillArgument($argument, $userArguments);
         }
@@ -162,6 +164,8 @@ class UglyDi
         if (!$argument->isOptional()) {
             return $this->get($userArguments[$argument->getName()]);
         }
+
+        return false;
     }
 
 } 

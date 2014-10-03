@@ -36,6 +36,8 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
         $this->di->get('BigBadBarry');
     }
 
+
+
     public function testNoConstructorClassCreatesClass()
     {
         $className = NoConstructor::class;
@@ -56,8 +58,7 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
     {
         $className = ViewModel::class;
         /** @var ViewModel $class */
-        $class = $this->di->get($className, false,
-            [
+        $class = $this->di->get($className, [
                 'variables' => ['bot' => 'clamps'],
             ]
         );
@@ -89,7 +90,7 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $class = $this->di->get($className, true, $arguments);
+        $class = $this->di->get($className, $arguments);
         $this->assertInstanceOf($className, $class);
 
         $className = TableGateway::class;
@@ -97,8 +98,11 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
             'table'   => 'donbot',
             'adapter' => Adapter::class,
         ];
-        $class     = $this->di->get($className, true, $arguments);
+        $class     = $this->di->get($className, $arguments);
         $this->assertInstanceOf($className, $class);
+
+        $adapter = new Adapter([]);
+        $adapter->getDriver()->getConnection()->disconnect()->connect();
     }
 
     public function testRandomComplexClass()
@@ -107,27 +111,27 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
         $arguments = [
             'modules' => [],
         ];
-        $class = $this->di->get($className, false, $arguments);
+        $class     = $this->di->get($className, $arguments);
         $this->assertInstanceOf($className, $class);
     }
 
     public function testDependenciesThatHaveComeFromConfig()
     {
-        $this->di = new UglyDi('tests/UglyDiTest/Asset/config.php');
+        $this->di  = new UglyDi('tests/UglyDiTest/Asset/config.php');
         $className = Adapter::class;
-        $class = $this->di->get($className);
+        $class     = $this->di->get($className);
         $this->assertInstanceOf($className, $class);
     }
 
     public function testDependenciesThatComeFromConfigImplied()
     {
-        $this->di = new UglyDi('tests/UglyDiTest/Asset/config.php');
+        $this->di  = new UglyDi('tests/UglyDiTest/Asset/config.php');
         $className = TableGateway::class;
         $arguments = [
-            'table' => 'bender',
+            'table'   => 'bender',
             'adapter' => Adapter::class,
         ];
-        $class = $this->di->get($className, false, $arguments);
+        $class     = $this->di->get($className, $arguments);
         $this->assertInstanceOf($className, $class);
     }
 

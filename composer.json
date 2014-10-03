@@ -3,6 +3,7 @@
     "description": "Ugly Dependency Injection Manager",
     "require-dev": {
         "zendframework/zendframework": "*"
+
     },
     "authors": [
         {
