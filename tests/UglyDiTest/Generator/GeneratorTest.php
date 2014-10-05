@@ -8,15 +8,27 @@
 namespace UglyDiTest\Generator;
 
 
+use BaconStringUtils\Slugifier;
 use UglyDi\Generator\Generator;
 use UglyDi\UglyDi;
 use UglyDiTest\Asset\NoConstructor;
 use UglyDiTest\Asset\OneConstructor;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
 
 class GeneratorTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @var Slugifier
+     */
+    protected $slugifier;
+
+    public function setUp()
+    {
+        $this->slugifier = new Slugifier();
+    }
 
     public function testGenerationForClassWithNoDependencies()
     {
@@ -24,15 +36,15 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $arguments = [];
 
         $cacheDir  = './tests/UglyDiTest/cache';
-        $generator = new Generator($cacheDir);
+        $generator = new Generator($cacheDir, new Slugifier());
 
 
         $result = $generator->generateFactory($className, $arguments, $arguments);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . sha1($className) . '.php');
+        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
 
-        $class = call_user_func($function, new UglyDi, $className, $arguments);
+        $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
     }
 
@@ -40,19 +52,20 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
     public function testGenerationForClassWithSimpleDependency()
     {
         $className = OneConstructor::class;
-        $uglyDi    = new UglyDi();
-        $reflector = $uglyDi->getReflector($className);
-        $arguments = $reflector->getConstructor()->getParameters();
 
         $cacheDir  = './tests/UglyDiTest/cache';
-        $generator = new Generator($cacheDir);
+        $generator = new Generator($cacheDir, new Slugifier());
+
+        $uglyDi    = new UglyDi($generator);
+        $reflector = $uglyDi->getReflector($className);
+        $arguments = $reflector->getConstructor()->getParameters();
 
         $result = $generator->generateFactory($className, $arguments, []);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . sha1($className) . '.php');
+        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
 
-        $class = call_user_func($function, new UglyDi, $className, $arguments);
+        $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
     }
 
@@ -68,19 +81,19 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $uglyDi    = new UglyDi();
+        $cacheDir  = './tests/UglyDiTest/cache';
+        $generator = new Generator($cacheDir, new Slugifier());
+
+        $uglyDi    = new UglyDi($generator);
         $reflector = $uglyDi->getReflector($className);
         $arguments = $reflector->getConstructor()->getParameters();
-
-        $cacheDir  = './tests/UglyDiTest/cache';
-        $generator = new Generator($cacheDir);
 
         $result = $generator->generateFactory($className, $arguments, $userParameters);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . sha1($className) . '.php');
+        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
 
-        $class = call_user_func($function, new UglyDi, $className, $arguments);
+        $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
 
     }
@@ -98,26 +111,60 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
             'queryResultPrototype' => ResultSet::class,
         ];
 
-        $uglyDi    = new UglyDi();
+        $cacheDir  = './tests/UglyDiTest/cache';
+        $generator = new Generator($cacheDir, new Slugifier());
+
+        $uglyDi    = new UglyDi($generator);
         $reflector = $uglyDi->getReflector($className);
         $arguments = $reflector->getConstructor()->getParameters();
-
-        $cacheDir  = './tests/UglyDiTest/cache';
-        $generator = new Generator($cacheDir);
 
         $result = $generator->generateFactory($className, $arguments, $userParameters);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . sha1($className) . '.php');
+        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
 
-        $class = call_user_func($function, new UglyDi, $className, $arguments);
+        $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
 
     }
 
     public function testGenerationForClassWithLotsOfDependencies()
     {
-        
+        /**
+         * BAD COPY AND PASTE JOB, MAKE BETTER
+         *
+         */
+        $className      = Adapter::class;
+        $userParameters = [
+            'driver'               => [
+                'driver'   => 'Mysqli',
+                'database' => 'zend_db_example',
+                'username' => 'developer',
+                'password' => 'developer-password'
+            ],
+            'queryResultPrototype' => ResultSet::class,
+        ];
+
+        $cacheDir  = './tests/UglyDiTest/cache';
+        $generator = new Generator($cacheDir, new Slugifier());
+
+        $uglyDi    = new UglyDi($generator);
+        $reflector = $uglyDi->getReflector($className);
+        $arguments = $reflector->getConstructor()->getParameters();
+
+        $result = $generator->generateFactory($className, $arguments, $userParameters);
+        $this->assertTrue($result);
+
+        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
+
+        $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
+        $this->assertInstanceOf($className, $class);
+
+        $className      = TableGateway::class;
+        $userParameters = [
+            'table' => 'table'
+        ];
+
     }
 
 }

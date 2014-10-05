@@ -15,4 +15,18 @@ interface GeneratorInterface
      * @return mixed
      */
     public function generateFactory($className, array $parameters, array $userArguments);
+
+    /**
+     * @param $className
+     * @return bool
+     */
+    public function exists($className);
+
+    /**
+     * @param $className
+     * @return string
+     */
+    public function getFileName($className);
+
+
 }

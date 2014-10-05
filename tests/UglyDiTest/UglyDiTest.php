@@ -8,6 +8,8 @@
 namespace UglyUserTest;
 
 
+use BaconStringUtils\Slugifier;
+use UglyDi\Generator\Generator;
 use UglyDi\UglyDi;
 use UglyDiTest\Asset\NoConstructor;
 use UglyDiTest\Asset\OneConstructor;
@@ -22,6 +24,10 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
      * @var UglyDi
      */
     protected $di;
+    /**
+     * @var Generator
+     */
+    protected $generator;
 
     public function testSetCreatedClassShortCircuits()
     {
@@ -35,7 +41,6 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('UglyDi\Exception\InvalidClassException');
         $this->di->get('BigBadBarry');
     }
-
 
 
     public function testNoConstructorClassCreatesClass()
@@ -59,7 +64,8 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
         $className = ViewModel::class;
         /** @var ViewModel $class */
         $class = $this->di->get($className, [
-                'variables' => ['bot' => 'clamps'],
+                'variables' =>
+                    ['bot' => 'clamps'],
             ]
         );
 
@@ -101,8 +107,6 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
         $class     = $this->di->get($className, $arguments);
         $this->assertInstanceOf($className, $class);
 
-        $adapter = new Adapter([]);
-        $adapter->getDriver()->getConnection()->disconnect()->connect();
     }
 
     public function testRandomComplexClass()
@@ -117,7 +121,7 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
 
     public function testDependenciesThatHaveComeFromConfig()
     {
-        $this->di  = new UglyDi('tests/UglyDiTest/Asset/config.php');
+        $this->di  = new UglyDi($this->generator, 'tests/UglyDiTest/Asset/config.php');
         $className = Adapter::class;
         $class     = $this->di->get($className);
         $this->assertInstanceOf($className, $class);
@@ -125,7 +129,7 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
 
     public function testDependenciesThatComeFromConfigImplied()
     {
-        $this->di  = new UglyDi('tests/UglyDiTest/Asset/config.php');
+        $this->di  = new UglyDi($this->generator, 'tests/UglyDiTest/Asset/config.php');
         $className = TableGateway::class;
         $arguments = [
             'table'   => 'bender',
@@ -138,12 +142,15 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
     public function testNoConfigExcepts()
     {
         $this->setExpectedException(\InvalidArgumentException::class);
-        $this->di = new UglyDi('this/wont/exist.php');
+        $this->di = new UglyDi($this->generator, 'this/wont/exist.php');
     }
 
     protected function setUp()
     {
-        $this->di = new UglyDi();
+        $cacheDir  = './tests/UglyDiTest/cache';
+        $this->generator = new Generator($cacheDir, new Slugifier());
+        $this->di = new UglyDi($this->generator);
+        $this->di->setAlwaysGenerate(true);
     }
 }
  

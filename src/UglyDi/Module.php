@@ -4,8 +4,7 @@ namespace UglyDi;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 
-class Module implements AutoloaderProviderInterface
-{
+class Module implements AutoloaderProviderInterface {
 
     public function getAutoloaderConfig()
     {
@@ -18,4 +17,14 @@ class Module implements AutoloaderProviderInterface
         ];
     }
 
+    /**
+     * Expected to return \Zend\ServiceManager\Config object or array to seed
+     * such an object.
+     *
+     * @return array|\Zend\ServiceManager\Config
+     */
+    public function getControllerConfig()
+    {
+        // TODO: Implement getControllerConfig() method.
+    }
 }

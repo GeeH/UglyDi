@@ -9,8 +9,8 @@ namespace UglyDi;
 
 
 use ReflectionClass;
-use ReflectionParameter;
 use UglyDi\Exception\InvalidClassException;
+use UglyDi\Generator\GeneratorInterface;
 use Zend\Stdlib\ArrayUtils;
 
 class UglyDi
@@ -27,13 +27,24 @@ class UglyDi
      * @var array
      */
     protected $config = [];
+    /**
+     * @var GeneratorInterface
+     */
+    protected $generator;
+    /**
+     * @var bool
+     */
+    protected $alwaysGenerate = false;
 
 
     /**
+     * @param GeneratorInterface $generator
      * @param null $config
      */
-    public function __construct($config = null)
+    public function __construct(GeneratorInterface $generator, $config = null)
     {
+        $this->generator = $generator;
+
         if (is_null($config)) {
             return true;
         }
@@ -51,7 +62,6 @@ class UglyDi
     /**
      * @param $className
      * @param array $userArguments
-     * @internal param bool $fillOptional
      * @return object
      */
     public function get($className, $userArguments = [])
@@ -61,29 +71,21 @@ class UglyDi
             return $this->created[$className];
         }
 
+        // merge user arguments with any config for this class in config array
         if (array_key_exists($className, $this->config)) {
             $userArguments = ArrayUtils::merge($userArguments, $this->config[$className]);
-
         }
 
-        $reflector = $this->getReflector($className);
-
-        // if there is a constructor with no parameters(?), just create class
-        if (!$reflector->getConstructor() || $reflector->getConstructor()->getNumberOfParameters() === 0) {
-            return $this->createAndStoreNewClass($className, $reflector);
+        if (!$this->generator->exists($className) || $this->getAlwaysGenerate()) {
+            $reflector = $this->getReflector($className);
+            $parameters = $reflector->getConstructor() ? $reflector->getConstructor()->getParameters() : [];
+            $this->generator->generateFactory($className, $parameters, $userArguments);
         }
 
-        // if there are no required parameters and we don't need to auto fill the optional dependencies
-        // and no user arguments
-        if ($reflector->getConstructor()->getNumberOfRequiredParameters() === 0
-            && empty($userArguments)
-        ) {
-            return $this->createAndStoreNewClass($className, $reflector);
-        }
-
-        $userArguments = $this->getAndFillArguments($reflector, $userArguments);
-
-        return $this->createAndStoreNewClass($className, $reflector, $userArguments);
+        $factory = require($this->generator->getFileName($className));
+        $class   = call_user_func($factory, $this);
+        $this->setCreatedClass($className, $class);
+        return $class;
 
     }
 
@@ -105,19 +107,6 @@ class UglyDi
 
     /**
      * @param $className
-     * @param ReflectionClass $reflectionClass
-     * @param array $arguments
-     * @return object
-     */
-    private function createAndStoreNewClass($className, ReflectionClass $reflectionClass, $arguments = [])
-    {
-        $class = $reflectionClass->newInstanceArgs($arguments);
-        $this->setCreatedClass($className, $class);
-        return $class;
-    }
-
-    /**
-     * @param $className
      * @param $object
      */
     public function setCreatedClass($className, $object)
@@ -126,46 +115,19 @@ class UglyDi
     }
 
     /**
-     * @param ReflectionClass $reflector
-     * @param array $userArguments
-     * @return array
+     * @return boolean
      */
-    private function getAndFillArguments(ReflectionClass $reflector, array $userArguments)
+    public function getAlwaysGenerate()
     {
-        $classArguments     = $reflector->getConstructor()->getParameters();
-        $completedArguments = [];
-        foreach ($classArguments as $argument) {
-            $completedArguments[] = $this->fillArgument($argument, $userArguments);
-        }
-        return $completedArguments;
+        return $this->alwaysGenerate;
     }
 
     /**
-     * @param ReflectionParameter $argument
-     * @param array $userArguments
-     * @return object
+     * @param boolean $alwaysGenerate
      */
-    private function fillArgument(ReflectionParameter $argument, array $userArguments)
+    public function setAlwaysGenerate($alwaysGenerate)
     {
-
-        if (!$argument->getClass()
-            && array_key_exists($argument->getName(), $userArguments)
-        ) {
-            return $userArguments[$argument->getName()];
-        }
-
-        if ($argument->getClass()
-            && !array_key_exists($argument->getName(), $userArguments)
-            && !$argument->isOptional()
-        ) {
-            return $this->get($argument->getClass()->getName());
-        }
-
-        if (!$argument->isOptional()) {
-            return $this->get($userArguments[$argument->getName()]);
-        }
-
-        return false;
+        $this->alwaysGenerate = (bool) $alwaysGenerate;
     }
 
 } 

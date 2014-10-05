@@ -1,6 +1,9 @@
 {
     "name": "geeh/ugly-di",
     "description": "Ugly Dependency Injection Manager",
+    "require": {
+        "bacon/bacon-string-utils": "dev-master"
+    },
     "require-dev": {
         "zendframework/zendframework": "*"
 
@@ -11,6 +14,5 @@
             "email": "gary@hock.in"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "dev"
 }

@@ -2,6 +2,7 @@
 
 namespace UglyDi\Generator;
 
+use BaconStringUtils\Slugifier;
 use ReflectionParameter;
 use UglyDi\Exception\InvalidCacheDirException;
 use UglyDi\UglyDi;
@@ -16,17 +17,22 @@ class Generator implements GeneratorInterface
      * @var string
      */
     protected $cacheDir = '';
+    /**
+     * @var Slugifier
+     */
+    protected $slugifier;
 
     /**
      * @param $cacheDir
      */
-    public function __construct($cacheDir)
+    public function __construct($cacheDir, Slugifier $slugifier)
     {
         if (substr($cacheDir, -1) !== '/') {
             // add trailing slash
             $cacheDir .= '/';
         }
-        $this->cacheDir = $cacheDir;
+        $this->cacheDir  = $cacheDir;
+        $this->slugifier = $slugifier;
     }
 
     /**
@@ -48,6 +54,24 @@ class Generator implements GeneratorInterface
         $factory .= '};' . PHP_EOL;
 
         return $this->writeFactoryToFile($className, $factory);
+    }
+
+    /**
+     * @param $className
+     * @return bool
+     */
+    public function exists($className)
+    {
+        return file_exists($this->getFileName($className));
+    }
+
+    /**
+     * @param $className
+     * @return string
+     */
+    public function getFileName($className)
+    {
+        return $this->cacheDir . $this->slugifier->slugify($className) . '.php';
     }
 
     /**
@@ -85,8 +109,9 @@ class Generator implements GeneratorInterface
             if (!is_null($option)) {
                 $factory .= $option;
             } else {
-                $factory .= $argument->getClass()->getName() . '\');' . PHP_EOL;
+                $factory .= $argument->getClass()->getName();
             }
+            $factory .= '\');' . PHP_EOL;
             return $factory;
         }
 
@@ -110,12 +135,13 @@ class Generator implements GeneratorInterface
      */
     private function writeFactoryToFile($className, $factory)
     {
-        $filename = sha1($className) . '.php';
         if (!($this->cacheDir)) {
             throw new InvalidCacheDirException('Directory `' . $this->cacheDir . '` is not writable');
         }
 
-        return file_put_contents($this->cacheDir . $filename, $factory) === strlen($factory);
+        $filename = $this->getFileName($className);
+
+        return file_put_contents($filename, $factory) === strlen($factory);
     }
 
 }
