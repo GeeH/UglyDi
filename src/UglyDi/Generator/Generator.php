@@ -53,30 +53,34 @@ class Generator implements GeneratorInterface
 
         $factory .= '};' . PHP_EOL;
 
-        return $this->writeFactoryToFile($className, $factory);
+        return $this->writeFactoryToFile($className, $factory, $userArguments);
     }
 
     /**
      * @param $className
      * @return bool
      */
-    public function exists($className)
+    public function exists($className, $userArguments)
     {
-        return file_exists($this->getFileName($className));
+        return file_exists($this->getFileName($className, $userArguments));
     }
 
     /**
      * @param $className
      * @return string
      */
-    public function getFileName($className)
+    public function getFileName($className, $userArguments)
     {
-        return $this->cacheDir . $this->slugifier->slugify($className) . '.php';
+        return $this->cacheDir . $this->slugifier->slugify($className)
+        . '_'
+        . $this->slugifier->slugify(json_encode($userArguments))
+        . '.php';
     }
 
     /**
      * @param $className
-     * @param \ReflectionParameter[] $parameters
+     * @param array $parameters
+     * @param array $userArguments
      * @return string
      */
     private function generateDependentClass($className, array $parameters, array $userArguments = [])
@@ -133,13 +137,13 @@ class Generator implements GeneratorInterface
      * @param $factory
      * @return bool
      */
-    private function writeFactoryToFile($className, $factory)
+    private function writeFactoryToFile($className, $factory, array $userArguments)
     {
         if (!($this->cacheDir)) {
             throw new InvalidCacheDirException('Directory `' . $this->cacheDir . '` is not writable');
         }
 
-        $filename = $this->getFileName($className);
+        $filename = $this->getFileName($className, $userArguments);
 
         return file_put_contents($filename, $factory) === strlen($factory);
     }

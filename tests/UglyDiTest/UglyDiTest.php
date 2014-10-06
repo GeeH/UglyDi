@@ -145,11 +145,24 @@ class UglyDiTest extends \PHPUnit_Framework_TestCase
         $this->di = new UglyDi($this->generator, 'this/wont/exist.php');
     }
 
+    public function testDifferentParametersGenerateDifferentFactories()
+    {
+        $this->di  = new UglyDi($this->generator, 'tests/UglyDiTest/Asset/config.php');
+        $className = TableGateway::class;
+        $arguments = [
+            'table'   => 'bender',
+            'adapter' => Adapter::class,
+        ];
+        /** @var TableGateway $class */
+        $class = $this->di->get($className, $arguments);
+        $this->assertEquals('bender', $class->getTable());
+    }
+
     protected function setUp()
     {
-        $cacheDir  = './tests/UglyDiTest/cache';
+        $cacheDir        = './tests/UglyDiTest/cache';
         $this->generator = new Generator($cacheDir, new Slugifier());
-        $this->di = new UglyDi($this->generator);
+        $this->di        = new UglyDi($this->generator);
         $this->di->setAlwaysGenerate(true);
     }
 }

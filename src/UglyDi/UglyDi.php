@@ -76,13 +76,13 @@ class UglyDi
             $userArguments = ArrayUtils::merge($userArguments, $this->config[$className]);
         }
 
-        if (!$this->generator->exists($className) || $this->getAlwaysGenerate()) {
+        if (!$this->generator->exists($className, $userArguments) || $this->getAlwaysGenerate()) {
             $reflector = $this->getReflector($className);
             $parameters = $reflector->getConstructor() ? $reflector->getConstructor()->getParameters() : [];
             $this->generator->generateFactory($className, $parameters, $userArguments);
         }
 
-        $factory = require($this->generator->getFileName($className));
+        $factory = require($this->generator->getFileName($className, $userArguments));
         $class   = call_user_func($factory, $this);
         $this->setCreatedClass($className, $class);
         return $class;

@@ -18,15 +18,17 @@ interface GeneratorInterface
 
     /**
      * @param $className
-     * @return bool
+     * @param $userArguments
+     * @return mixed
      */
-    public function exists($className);
+    public function exists($className, $userArguments);
 
     /**
      * @param $className
-     * @return string
+     * @param $userArguments
+     * @return mixed
      */
-    public function getFileName($className);
+    public function getFileName($className, $userArguments);
 
 
 }

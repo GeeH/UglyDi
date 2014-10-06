@@ -42,7 +42,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $result = $generator->generateFactory($className, $arguments, $arguments);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
+        $function = require($generator->getFileName($className, $arguments));
 
         $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
@@ -63,7 +63,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $result = $generator->generateFactory($className, $arguments, []);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
+        $function = require($generator->getFileName($className, []));
 
         $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
@@ -91,7 +91,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $result = $generator->generateFactory($className, $arguments, $userParameters);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
+        $function = require($generator->getFileName($className, $userParameters));
 
         $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
@@ -121,7 +121,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $result = $generator->generateFactory($className, $arguments, $userParameters);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
+        $function = require($generator->getFileName($className, $userParameters));
 
         $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
@@ -155,7 +155,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $result = $generator->generateFactory($className, $arguments, $userParameters);
         $this->assertTrue($result);
 
-        $function = require($cacheDir . '/' . $this->slugifier->slugify($className) . '.php');
+        $function = require($generator->getFileName($className, $userParameters));
 
         $class = call_user_func($function, new UglyDi($generator), $className, $arguments);
         $this->assertInstanceOf($className, $class);
