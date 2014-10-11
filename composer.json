@@ -2,7 +2,7 @@
     "name": "geeh/ugly-di",
     "description": "Ugly Dependency Injection Manager",
     "require": {
-        "bacon/bacon-string-utils": "dev-master"
+        "bacon/bacon-string-utils": "~1.0@dev"
     },
     "require-dev": {
         "zendframework/zendframework": "~2.0"
