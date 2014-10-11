@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "93c1e7d98f671e1f9b717d1252b8d418",
+    "hash": "81d48b208f04e1fdea6a7b0ed6762373",
     "packages": [
         {
             "name": "bacon/bacon-string-utils",
@@ -12,27 +12,32 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bacon/BaconStringUtils.git",
-                "reference": "118e9d82411b323882c94d7070c98442c8f2eb78"
+                "reference": "92fdcb13609aed5a4e06f0a8c273d7569f594b0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bacon/BaconStringUtils/zipball/118e9d82411b323882c94d7070c98442c8f2eb78",
-                "reference": "118e9d82411b323882c94d7070c98442c8f2eb78",
+                "url": "https://api.github.com/repos/Bacon/BaconStringUtils/zipball/92fdcb13609aed5a4e06f0a8c273d7569f594b0f",
+                "reference": "92fdcb13609aed5a4e06f0a8c273d7569f594b0f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "satooshi/php-coveralls": "dev-master",
-                "squizlabs/php_codesniffer": "1.*",
-                "zendframework/zendframework": "2.*"
+                "phpunit/phpunit": "~3.7",
+                "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "~1.5",
+                "zendframework/zendframework": "~2.0"
             },
             "suggest": {
-                "zendframework/zend-filter": "To use the Slugifier as a Zend\\Filter instance"
+                "zendframework/zend-filter": "To use the Slugifier as a Zend\\Filter instance."
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "BaconStringUtils": "src/"
@@ -52,22 +57,22 @@
             ],
             "description": "BaconStringUtils contain utitilies to work with strings.",
             "homepage": "https://github.com/Bacon/BaconStringUtils",
-            "time": "2014-04-07 22:58:55"
+            "time": "2014-10-11 16:42:19"
         }
     ],
     "packages-dev": [
         {
             "name": "zendframework/zendframework",
-            "version": "dev-master",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "f77f90bfe635a762d1a89469fe846585d636a89f"
+                "reference": "88c9b6f566fc1097f64ead155625db9bdfee531e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/f77f90bfe635a762d1a89469fe846585d636a89f",
-                "reference": "f77f90bfe635a762d1a89469fe846585d636a89f",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/88c9b6f566fc1097f64ead155625db9bdfee531e",
+                "reference": "88c9b6f566fc1097f64ead155625db9bdfee531e",
                 "shasum": ""
             },
             "require": {
@@ -172,20 +177,20 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-09-24 19:34:30"
+            "time": "2014-09-16 22:58:11"
         },
         {
             "name": "zendframework/zendxml",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendXml.git",
-                "reference": "5ea106152f32f738430f3af9ac638bf30adec625"
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/5ea106152f32f738430f3af9ac638bf30adec625",
-                "reference": "5ea106152f32f738430f3af9ac638bf30adec625",
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
                 "shasum": ""
             },
             "require": {
@@ -217,11 +222,11 @@
                 "xml",
                 "zf2"
             ],
-            "time": "2014-08-14 15:29:10"
+            "time": "2014-03-05 22:25:44"
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "bacon/bacon-string-utils": 20
     },
