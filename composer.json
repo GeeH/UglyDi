@@ -5,7 +5,7 @@
         "bacon/bacon-string-utils": "dev-master"
     },
     "require-dev": {
-        "zendframework/zendframework": "*"
+        "zendframework/zendframework": "~2.0"
 
     },
     "authors": [
@@ -13,6 +13,5 @@
             "name": "Gary Hockin",
             "email": "gary@hock.in"
         }
-    ],
-    "minimum-stability": "dev"
+    ]
 }
