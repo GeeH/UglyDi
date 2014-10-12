@@ -164,6 +164,8 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $userParameters = [
             'table' => 'table'
         ];
+        $reflector = $uglyDi->getReflector($className);
+        $arguments = $reflector->getConstructor()->getParameters();
 
     }
 

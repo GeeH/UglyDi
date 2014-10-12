@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1412852214">
+  <project timestamp="1412852214">
+    <package name="UglyDi\Exception">
+      <file name="/Users/geeh/www/stats/module/UglyDi/src/UglyDi/Exception/InvalidCacheDirException.php">
+        <class name="InvalidCacheDirException" namespace="UglyDi\Exception">
+          <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="13" ncloc="8" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+      <file name="/Users/geeh/www/stats/module/UglyDi/src/UglyDi/Exception/InvalidClassException.php">
+        <class name="InvalidClassException" namespace="UglyDi\Exception">
+          <metrics methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="13" ncloc="8" classes="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+    </package>
+    <package name="UglyDi\Generator">
+      <file name="/Users/geeh/www/stats/module/UglyDi/src/UglyDi/Generator/Generator.php">
+        <class name="Generator" namespace="UglyDi\Generator">
+          <metrics methods="7" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="52" coveredstatements="51" elements="59" coveredelements="58"/>
+        </class>
+        <line num="0" type="stmt" count="3"/>
+        <line num="28" type="method" name="__construct" crap="2" count="17"/>
+        <line num="30" type="stmt" count="17"/>
+        <line num="32" type="stmt" count="17"/>
+        <line num="33" type="stmt" count="17"/>
+        <line num="34" type="stmt" count="17"/>
+        <line num="35" type="stmt" count="17"/>
+        <line num="36" type="stmt" count="17"/>
+        <line num="44" type="method" name="generateFactory" crap="2" count="11"/>
+        <line num="46" type="stmt" count="11"/>
+        <line num="47" type="stmt" count="11"/>
+        <line num="48" type="stmt" count="11"/>
+        <line num="49" type="stmt" count="3"/>
+        <line num="50" type="stmt" count="3"/>
+        <line num="51" type="stmt" count="9"/>
+        <line num="54" type="stmt" count="11"/>
+        <line num="56" type="stmt" count="11"/>
+        <line num="63" type="method" name="exists" crap="1" count="13"/>
+        <line num="65" type="stmt" count="13"/>
+        <line num="72" type="method" name="getFileName" crap="1" count="15"/>
+        <line num="74" type="stmt" count="15"/>
+        <line num="75" type="stmt" count="15"/>
+        <line num="76" type="stmt" count="15"/>
+        <line num="77" type="stmt" count="15"/>
+        <line num="86" type="method" name="generateDependentClass" crap="3" count="9"/>
+        <line num="88" type="stmt" count="9"/>
+        <line num="89" type="stmt" count="9"/>
+        <line num="90" type="stmt" count="9"/>
+        <line num="91" type="stmt" count="9"/>
+        <line num="92" type="stmt" count="9"/>
+        <line num="93" type="stmt" count="9"/>
+        <line num="94" type="stmt" count="9"/>
+        <line num="95" type="stmt" count="9"/>
+        <line num="96" type="stmt" count="9"/>
+        <line num="97" type="stmt" count="9"/>
+        <line num="98" type="stmt" count="9"/>
+        <line num="100" type="stmt" count="9"/>
+        <line num="108" type="method" name="generateArgument" crap="7" count="9"/>
+        <line num="110" type="stmt" count="9"/>
+        <line num="111" type="stmt" count="9"/>
+        <line num="112" type="stmt" count="3"/>
+        <line num="113" type="stmt" count="3"/>
+        <line num="114" type="stmt" count="1"/>
+        <line num="115" type="stmt" count="1"/>
+        <line num="116" type="stmt" count="2"/>
+        <line num="118" type="stmt" count="3"/>
+        <line num="119" type="stmt" count="3"/>
+        <line num="122" type="stmt" count="7"/>
+        <line num="123" type="stmt" count="2"/>
+        <line num="124" type="stmt" count="2"/>
+        <line num="125" type="stmt" count="2"/>
+        <line num="126" type="stmt" count="2"/>
+        <line num="129" type="stmt" count="7"/>
+        <line num="130" type="stmt" count="7"/>
+        <line num="132" type="stmt" count="7"/>
+        <line num="140" type="method" name="writeFactoryToFile" crap="2.06" count="11"/>
+        <line num="142" type="stmt" count="11"/>
+        <line num="143" type="stmt" count="0"/>
+        <line num="146" type="stmt" count="11"/>
+        <line num="148" type="stmt" count="11"/>
+        <metrics loc="150" ncloc="106" classes="1" methods="7" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="52" coveredstatements="51" elements="59" coveredelements="57"/>
+      </file>
+    </package>
+    <file name="/Users/geeh/www/stats/module/UglyDi/src/UglyDi/Generator/GeneratorInterface.php">
+      <metrics loc="33" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <package name="UglyDi">
+      <file name="/Users/geeh/www/stats/module/UglyDi/src/UglyDi/Module.php">
+        <class name="Module" namespace="UglyDi">
+          <metrics methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="7" coveredelements="5"/>
+        </class>
+        <line num="9" type="method" name="getAutoloaderConfig" crap="1" count="1"/>
+        <line num="14" type="stmt" count="1"/>
+        <line num="15" type="stmt" count="1"/>
+        <line num="16" type="stmt" count="1"/>
+        <line num="17" type="stmt" count="1"/>
+        <line num="26" type="method" name="getControllerConfig" crap="2" count="0"/>
+        <line num="29" type="stmt" count="0"/>
+        <metrics loc="29" ncloc="21" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="4" elements="7" coveredelements="5"/>
+      </file>
+      <file name="/Users/geeh/www/stats/module/UglyDi/src/UglyDi/UglyDi.php">
+        <class name="UglyDi" namespace="UglyDi">
+          <metrics methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="31" elements="39" coveredelements="37"/>
+        </class>
+        <line num="0" type="stmt" count="6"/>
+        <line num="44" type="method" name="__construct" crap="4.13" count="17"/>
+        <line num="46" type="stmt" count="17"/>
+        <line num="48" type="stmt" count="17"/>
+        <line num="49" type="stmt" count="17"/>
+        <line num="51" type="stmt" count="4"/>
+        <line num="52" type="stmt" count="0"/>
+        <line num="53" type="stmt" count="0"/>
+        <line num="55" type="stmt" count="4"/>
+        <line num="56" type="stmt" count="3"/>
+        <line num="57" type="stmt" count="3"/>
+        <line num="59" type="stmt" count="1"/>
+        <line num="67" type="method" name="get" crap="7" count="14"/>
+        <line num="70" type="stmt" count="14"/>
+        <line num="71" type="stmt" count="2"/>
+        <line num="75" type="stmt" count="13"/>
+        <line num="76" type="stmt" count="3"/>
+        <line num="77" type="stmt" count="3"/>
+        <line num="79" type="stmt" count="13"/>
+        <line num="80" type="stmt" count="7"/>
+        <line num="81" type="stmt" count="6"/>
+        <line num="82" type="stmt" count="6"/>
+        <line num="83" type="stmt" count="6"/>
+        <line num="85" type="stmt" count="12"/>
+        <line num="86" type="stmt" count="12"/>
+        <line num="87" type="stmt" count="12"/>
+        <line num="88" type="stmt" count="12"/>
+        <line num="97" type="method" name="getReflector" crap="2" count="11"/>
+        <line num="100" type="stmt" count="11"/>
+        <line num="101" type="stmt" count="1"/>
+        <line num="104" type="stmt" count="10"/>
+        <line num="105" type="stmt" count="10"/>
+        <line num="112" type="method" name="setCreatedClass" crap="1" count="13"/>
+        <line num="114" type="stmt" count="13"/>
+        <line num="115" type="stmt" count="13"/>
+        <line num="120" type="method" name="getAlwaysGenerate" crap="1" count="12"/>
+        <line num="122" type="stmt" count="12"/>
+        <line num="128" type="method" name="setAlwaysGenerate" crap="1" count="12"/>
+        <line num="130" type="stmt" count="12"/>
+        <line num="131" type="stmt" count="12"/>
+        <metrics loc="132" ncloc="82" classes="1" methods="6" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="31" elements="39" coveredelements="36"/>
+      </file>
+    </package>
+    <metrics files="6" loc="370" ncloc="237" classes="5" methods="15" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="90" coveredstatements="86" elements="105" coveredelements="98"/>
+  </project>
+</coverage>

@@ -5,7 +5,8 @@
         "bacon/bacon-string-utils": "dev-master"
     },
     "require-dev": {
-        "zendframework/zendframework": "*"
+        "zendframework/zendframework": "*",
+        "codeclimate/php-test-reporter": "dev-master"
 
     },
     "authors": [
@@ -14,5 +15,10 @@
             "email": "gary@hock.in"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+    "psr-0": {
+        "UglyDi\\": "src/"
+    }
+}
 }
