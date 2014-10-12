@@ -4,11 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "a5d2290bef006a4a5d02b15fceb1f977",
-=======
-    "hash": "81d48b208f04e1fdea6a7b0ed6762373",
->>>>>>> fae3577f720f418d95c131611cea4b2333681421
+    "hash": "fa7f417dcd0b336969258c2b8f13c321",
     "packages": [
         {
             "name": "bacon/bacon-string-utils",
@@ -16,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bacon/BaconStringUtils.git",
-                "reference": "92fdcb13609aed5a4e06f0a8c273d7569f594b0f"
+                "reference": "3d7818aca25190149a9a2415a0928d4964d6007e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bacon/BaconStringUtils/zipball/92fdcb13609aed5a4e06f0a8c273d7569f594b0f",
-                "reference": "92fdcb13609aed5a4e06f0a8c273d7569f594b0f",
+                "url": "https://api.github.com/repos/Bacon/BaconStringUtils/zipball/3d7818aca25190149a9a2415a0928d4964d6007e",
+                "reference": "3d7818aca25190149a9a2415a0928d4964d6007e",
                 "shasum": ""
             },
             "require": {
@@ -61,7 +57,7 @@
             ],
             "description": "BaconStringUtils contain utitilies to work with strings.",
             "homepage": "https://github.com/Bacon/BaconStringUtils",
-            "time": "2014-10-11 16:42:19"
+            "time": "2014-10-11 16:58:02"
         }
     ],
     "packages-dev": [
@@ -626,16 +622,16 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.3.3",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "88c9b6f566fc1097f64ead155625db9bdfee531e"
+                "reference": "af0673cf1186648ea22f35525dffdf161943855e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/88c9b6f566fc1097f64ead155625db9bdfee531e",
-                "reference": "88c9b6f566fc1097f64ead155625db9bdfee531e",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/af0673cf1186648ea22f35525dffdf161943855e",
+                "reference": "af0673cf1186648ea22f35525dffdf161943855e",
                 "shasum": ""
             },
             "require": {
@@ -740,20 +736,20 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-09-16 22:58:11"
+            "time": "2014-10-10 21:05:02"
         },
         {
             "name": "zendframework/zendxml",
-            "version": "1.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendXml.git",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f"
+                "reference": "5ea106152f32f738430f3af9ac638bf30adec625"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/5ea106152f32f738430f3af9ac638bf30adec625",
+                "reference": "5ea106152f32f738430f3af9ac638bf30adec625",
                 "shasum": ""
             },
             "require": {
@@ -785,11 +781,11 @@
                 "xml",
                 "zf2"
             ],
-            "time": "2014-03-05 22:25:44"
+            "time": "2014-08-14 15:29:10"
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "bacon/bacon-string-utils": 20,
         "codeclimate/php-test-reporter": 20
