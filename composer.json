@@ -2,12 +2,11 @@
     "name": "geeh/ugly-di",
     "description": "Ugly Dependency Injection Manager",
     "require": {
-        "bacon/bacon-string-utils": "dev-master"
+        "bacon/bacon-string-utils": "~1.0@dev"
     },
     "require-dev": {
-        "zendframework/zendframework": "*",
-        "codeclimate/php-test-reporter": "dev-master"
-
+        "codeclimate/php-test-reporter": "dev-master",
+        "zendframework/zendframework": "~2.0"
     },
     "authors": [
         {
@@ -17,8 +16,8 @@
     ],
     "minimum-stability": "dev",
     "autoload": {
-    "psr-0": {
-        "UglyDi\\": "src/"
+        "psr-0": {
+            "UglyDi\\": "src/"
+        }
     }
-}
 }
